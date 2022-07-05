@@ -1,11 +1,15 @@
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <main className="App">
-      <h1 className="text-red-300 text-6xl">dinopedia</h1>
-      <Outlet />
+    <main className="App flex flex-1 flex-col items-center bg-zinc-100">
+      <nav className="flex items-center justify-between p-5 mt-2 w-11/12 h-12">
+        <Link to={"/"}>home</Link>
+      </nav>
+      <section className="p-4 w-full">
+        <Outlet />
+      </section>
     </main>
   );
 }
