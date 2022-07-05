@@ -35,7 +35,7 @@ export function Dinos() {
     <div className="mb-12">
       <section className="flex flex-col items-center justify-center">
         <h1 className="text-7xl mt-32 text-slate-700 font-bold">dinopedia</h1>
-        <form className="flex items-center w-10/12 my-24 py-2 px-4 rounded-lg border-2 bg-zinc-50 focus:border-slate-400">
+        <form className="flex items-center w-6/12 my-24 py-2 px-4 rounded-lg border-2 bg-zinc-50 focus:border-slate-400">
           <FontAwesomeIcon
             className="mr-4 text-slate-400"
             icon={faMagnifyingGlass}
