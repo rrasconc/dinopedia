@@ -2,11 +2,7 @@
   "root": "./dist",
   "proxies": {
     "/api": {
-      "target": "https://dinosaurpictures.org/api",
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/api": ""
-      }
+      "origin": "https://dinosaurpictures.org/api"
     }
   }
 }
