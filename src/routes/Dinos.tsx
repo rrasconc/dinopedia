@@ -82,9 +82,14 @@ export function Dinos() {
           />
         </form>
         {searchValue && searchList.length > 0 && (
-          <div className="flex flex-col overflow-scroll overflow-x-hidden shadow-xl bg-zinc-100 border-x-2 border-b-2 border-slate-300  rounded-b-lg relative z-10 w-11/12 md:w-8/12">
+          <div className="flex flex-col overflow-auto overflow-x-hidden shadow-xl bg-zinc-100 border-x-2 border-b-2 border-slate-300  rounded-b-lg relative z-10 w-11/12 md:w-8/12">
             {searchList.map((dino) => (
-              <span className="w-full text-left text-xl text-slate-700 px-4 py-2 border-t-2 border-slate-200 hover:cursor-pointer hover:bg-gray-200">
+              <span
+                onClick={(e) => {
+                  setSearchValue(dino);
+                }}
+                className="w-full text-left text-xl text-slate-700 px-4 py-2 border-t-2 border-slate-200 hover:cursor-pointer hover:bg-gray-200"
+              >
                 {dino}
               </span>
             ))}
@@ -106,7 +111,6 @@ export function Dinos() {
                 key={dino.name}
                 to={`dino/${dino}`}
               >
-                mbanuelos
                 <img
                   loading="lazy"
                   className="h-full w-full object-fit"
