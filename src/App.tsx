@@ -7,7 +7,7 @@ function App() {
       <nav className="flex items-center justify-between p-5 mt-2 w-11/12 h-12">
         <Link to={"/"}>home</Link>
       </nav>
-      <Outlet />
+    <Outlet />
     </main>
   );
 }
