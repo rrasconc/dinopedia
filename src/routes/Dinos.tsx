@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +14,20 @@ export function Dinos() {
   const [dinosAll, setDinosAll] = useState<string[]>([]);
   const [showDinosAll, setShowDinosAll] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>("A");
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const searchList = useMemo(
+    () =>
+      dinosAll.filter((dinoName) =>
+        dinoName.toLowerCase().includes(searchValue.toLowerCase())
+      ),
+    [searchValue]
+  );
+
+  const filteredDinos = useMemo(
+    () => dinosAll.filter((dino) => dino.startsWith(selectedFilter)),
+    [selectedFilter]
+  );
 
   const fetchDinos = async () => {
     const response = await fetch("/api/category/all/");
@@ -44,21 +58,36 @@ export function Dinos() {
         style={{
           height: "70vh",
         }}
-        className="flex flex-col mb-12 items-center justify-center bg-slate-200"
+        className="flex flex-col mb-12 items-center bg-slate-200"
       >
-        <img className="h-36 mt-36 drop-shadow-lg" src={imgUrl} />
+        <img className="h-36 mt-32 drop-shadow-lg" src={imgUrl} />
         <h1 className="text-7xl  text-slate-700 font-bold">dinopedia</h1>
-        <form className="flex items-center w-11/12 md:w-8/12 my-24 py-2 px-4 rounded-lg border-2 border-slate-300 bg-zinc-100 hover:border-slate-700">
+        <form
+          className={`flex ${
+            searchValue && searchList.length > 0 && "border-b-0 rounded-b-none"
+          } items-center w-11/12 md:w-8/12 mt-12 py-2 px-4 border-t-2 border-x-2 border-b-2 rounded-b-lg hover:border-slate-700 rounded-t-lg border-slate-300 bg-zinc-100`}
+        >
           <FontAwesomeIcon
             className="mr-4 text-slate-400"
             icon={faMagnifyingGlass}
           />
           <input
-            className="w-full text-xl text-slate-700 bg-zinc-100 focus:outline-none"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             type="text"
             placeholder={`Search for one of the ${dinosAll.length} dinosaurs`}
+            className="w-full text-xl  text-slate-700 bg-zinc-100 focus:outline-none"
           />
         </form>
+        {searchValue && searchList.length > 0 && (
+          <div className="flex flex-col overflow-scroll overflow-x-hidden shadow-xl bg-zinc-100 border-x-2 border-b-2 border-slate-300  rounded-b-lg relative z-10 w-11/12 md:w-8/12">
+            {searchList.map((dino) => (
+              <span className="w-full text-left text-xl text-slate-700 px-4 py-2 border-t-2 border-slate-200 hover:cursor-pointer hover:bg-gray-200">
+                {dino}
+              </span>
+            ))}
+          </div>
+        )}
       </section>
       <section className="flex flex-col justify-center items-center my-12">
         <div className="flex flex-wrap justify-center my-12">
@@ -75,6 +104,7 @@ export function Dinos() {
                 key={dino.name}
                 to={`dino/${dino}`}
               >
+                mbanuelos
                 <img
                   loading="lazy"
                   className="h-full w-full object-fit"
@@ -112,13 +142,11 @@ export function Dinos() {
         )}
         <div className="flex flex-wrap justify-center items-center w-10/12">
           {showDinosAll &&
-            dinosAll
-              .filter((dino) => dino.split("")[0] === selectedFilter)
-              .map((dino) => (
-                <h1 className=" bg-slate-200 rounded-md p-2 m-2 text-center ">
-                  {dino}
-                </h1>
-              ))}
+            filteredDinos.map((dino) => (
+              <h1 className=" bg-slate-200 rounded-md p-2 m-2 text-center ">
+                {dino}
+              </h1>
+            ))}
         </div>
       </section>
     </div>
