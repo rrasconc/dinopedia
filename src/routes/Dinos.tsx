@@ -64,7 +64,9 @@ export function Dinos() {
         <h1 className="text-7xl  text-slate-700 font-bold">dinopedia</h1>
         <form
           className={`flex ${
-            searchValue && searchList.length > 0 && "border-b-0 rounded-b-none"
+            searchValue &&
+            searchList.length > 0 &&
+            "border-b-0 rounded-b-none hover:border-slate-300"
           } items-center w-11/12 md:w-8/12 mt-12 py-2 px-4 border-t-2 border-x-2 border-b-2 rounded-b-lg hover:border-slate-700 rounded-t-lg border-slate-300 bg-zinc-100`}
         >
           <FontAwesomeIcon
